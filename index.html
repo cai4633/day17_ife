@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">    
+    <title>IFE ECMAScript</title>
+</head>
+<body>        
+    <input id="first-number" type="number" value="0" placeholder="第一个数字">
+    <input id="second-number" type="number" value="0" placeholder="第二个数字">
+    <button id="add-btn">加</button>
+    <button id="minus-btn">减</button>
+    <button id="times-btn">乘</button>
+    <button id="divide-btn">除</button>
+    <p id="result">运算结果: </p>
+    <script>
+        window.onload=function(){
+            var operator_add=document.getElementById('add-btn'),
+                operator_minus=document.getElementById('minus-btn'),
+                operator_times=document.getElementById('times-btn'),
+                operator_divide=document.getElementById('divide-btn'),
+                first_number=document.getElementById('first-number'),
+                second_number=document.getElementById('second-number'),
+                result=document.getElementById('result');
+                attachEvent(operator_add, '+');
+                attachEvent(operator_minus, '-');
+                attachEvent(operator_times, '*');
+                attachEvent(operator_divide, '/');
+
+                //抽象出一个绑定事件的函数；
+                function attachEvent(obj,operator){
+
+                    obj.onclick=function(event){
+                        var firstNum=parseFloat(first_number.value),
+                            secondNum=parseFloat(second_number.value); 
+                            result.innerHTML="运算结果: ";                 
+                    
+                         //判断输入是否是number；
+                         if(typeof(firstNum)!=='number'||isNaN(firstNum)){
+                            alert("第一个输入不是一个数字！")
+                             return null;
+                             }
+                             else if(typeof(secondNum)!=='number'||isNaN(secondNum)){
+                             alert("第二个输入不是一个数字！")
+                             return null;
+                              }
+
+
+                    //通过不同的操作符来选择不同的运算函数；
+                        switch(operator){
+                            case '+':{
+                                result.innerHTML+=add(firstNum, secondNum).toFixed(6);
+                                break;
+                            }
+                            case '-':{
+                                result.innerHTML+=minus(firstNum, secondNum).toFixed(6);
+                                break;
+                            }
+                            case '*':{
+                                result.innerHTML+=times(firstNum, secondNum).toFixed(6);
+                                break;
+                            }
+                            case '/':{
+                                result.innerHTML+=divide(firstNum, secondNum).toFixed(6);
+                                break;
+                            }
+                            default:{
+                                alert('你输入的操作符有误!');
+                            }
+
+                        }
+                    }   
+
+                }
+
+
+        }
+
+
+                //加法函数
+                function add(num1,num2){
+                          return num1+num2;
+                }
+
+                //减法函数
+                 function minus(num1,num2){
+                          return num1-num2;
+                }
+
+
+                //乘法函数；
+                function times(num1,num2){
+                          return num1*num2;
+                        }
+                  
+
+                //除法函数；
+                  function divide(num1,num2){
+                        if(num2===0){
+                            alert('注意除数不能为0！')
+                             return null;
+                         }
+                        else{
+                          return num1/num2;
+                        }
+
+                }
+    </script>
+</body>
+</html>
