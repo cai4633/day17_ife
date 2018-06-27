@@ -4,32 +4,66 @@
     <meta charset="UTF-8">    
     <title>IFE ECMAScript</title>
     <style type="text/css">
-        .func1{
+        *{
+        padding: 0px;
+        margin: 0px;
+        font-family: 'microsoft yahei';
+    }
+
+        .func{
             width: 60%;
-            margin: 10px auto;
+            margin: 20px auto;
             border: 1px solid #928E8E;
     }
 
-    .func1_container{
-        width: 70%;
-        margin: 0 auto;
+    
 
+    .func_container{
+        width: 70%;
+        margin: 20px auto;
+
+    }
+
+    button{
+        margin: 10px;
+    } 
+    h1{
+        font-size: 1.5em;
+    }
+
+    input::placeholder{
+        color: #D7C4C4;
+        font-size:14px;
+    }
+
+    #dec-number,#bin-bit{
+        width: 35%;
     }
 
     </style>
 </head>
 <body>        
-            <div class="func1">
-                    <div class="func1_container">
+            <div class="func">
+                    <div class="func_container">
                         <h1>四则运算练习</h1>
-                        <input id="first-number" type="number" value="0" placeholder="第一个数字">
-                        <input id="second-number" type="number" value="0" placeholder="第二个数字">
+                        <input id="first-number" type="number" value="" placeholder="第一个数字">
+                        <input id="second-number" type="number" value="" placeholder="第二个数字">
                         <button id="add-btn">加</button>
                         <button id="minus-btn">减</button>
                         <button id="times-btn">乘</button>
                         <button id="divide-btn">除</button>
-                        <p id="result">运算结果: </p>
+                        <p id="result1">运算结果: </p>
                     </div>
+            </div>
+
+            <div class="func">
+                <div class="func_container">
+                        <h1>十进制转二进制</h1>
+                        <input id="dec-number" type="number" placeholder="输入一个十进制非负整数">
+                        <input id="bin-bit" type="number" placeholder="输入转化后二进制数字位数">
+                        <button id="trans-btn">转化为二进制</button>
+                        <p id="result2">运算结果:</p>
+                </div>
             </div>
 
             <script>
@@ -40,11 +74,18 @@
                         operator_divide=document.getElementById('divide-btn'),
                         first_number=document.getElementById('first-number'),
                         second_number=document.getElementById('second-number'),
-                        result=document.getElementById('result');
+                        result1=document.getElementById('result1'),
+                        dec_number=document.getElementById('dec-number'),
+                        bin_bit=document.getElementById('bin-bit'),
+                        trans_btn=document.getElementById('trans-btn'),
+                        result2=document.getElementById('result2');
+
+
                         attachEvent(operator_add, '+');
                         attachEvent(operator_minus, '-');
                         attachEvent(operator_times, '*');
                         attachEvent(operator_divide, '/');
+                        trans_btn.addEventListener('click',function(){dec2bin(decNumber, binBit)});
 
                         //抽象出一个绑定事件的函数；
                         function attachEvent(obj,operator){
@@ -52,7 +93,7 @@
                             obj.onclick=function(event){
                                 var firstNum=parseFloat(first_number.value),
                                     secondNum=parseFloat(second_number.value); 
-                                    result.innerHTML="运算结果: ";                 
+                                    result1.innerHTML="运算结果: ";                 
                             
                                  //判断输入是否是number；
                                  if(typeof(firstNum)!=='number'||isNaN(firstNum)){
@@ -68,19 +109,19 @@
                             //通过不同的操作符来选择不同的运算函数；
                                 switch(operator){
                                     case '+':{
-                                        result.innerHTML+=add(firstNum, secondNum).toFixed(6);
+                                        result1.innerHTML+=add(firstNum, secondNum).toFixed(6);
                                         break;
                                     }
                                     case '-':{
-                                        result.innerHTML+=minus(firstNum, secondNum).toFixed(6);
+                                        result1.innerHTML+=minus(firstNum, secondNum).toFixed(6);
                                         break;
                                     }
                                     case '*':{
-                                        result.innerHTML+=times(firstNum, secondNum).toFixed(6);
+                                        result1.innerHTML+=times(firstNum, secondNum).toFixed(6);
                                         break;
                                     }
                                     case '/':{
-                                        result.innerHTML+=divide(firstNum, secondNum).toFixed(6);
+                                        result1.innerHTML+=divide(firstNum, secondNum).toFixed(6);
                                         break;
                                     }
                                     default:{
@@ -92,11 +133,7 @@
 
                         }
 
-
-                }
-
-
-                        //加法函数
+                       //加法函数
                         function add(num1,num2){
                                   return num1+num2;
                         }
@@ -124,6 +161,23 @@
                                 }
 
                         }
+
+                    //dec2bin
+                function dec2bin(decNumber,binBit) {
+
+}
+
+
+// 实现党点击转化按钮时，将输入的十进制数字转化为二进制，并显示在result的p标签内
+// 新的需求是，转化显示后的二进制数为bin-bit中输入的数字宽度，例如
+// dec-number为5，bin-bit为5，则转化后数字为00101
+// 如果bin-bit小于转化后的二进制本身位数，则使用原本的位数，如dec-number为5，bin-bit为2，依然输出101，但同时在console中报个错
+// Some coding
+
+                
+
+                }
+
             </script>
 </body>
 </html>
